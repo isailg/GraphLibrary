@@ -19,4 +19,4 @@ A simple Python3 library to generate graphs
 
 **Carpeta GraphViz/** Muestra los archivos .gv que se exporta de cada método en cada configuración (30,100,500).
 
-**Carpeta Graph/** Images Contiene las imágenes obtenidas en gephi de los grafos generados por main.py.
+**Carpeta Graph Images/** Contiene las imágenes obtenidas en gephi de los grafos generados por main.py.
