@@ -5,7 +5,7 @@ import random
 from math import sqrt
 
 
-def grafoMalla(m, n, directed: False):
+def grafoMalla(m, n, directed= False):
 	"""
 	Genera grafo de malla
 	Entrada:
@@ -15,6 +15,40 @@ def grafoMalla(m, n, directed: False):
 	Salida:
 		Grafo
 	"""
+	graph = Graph()
+
+	c=[]
+	index=0
+	for i in range(m):
+		for j in range(n):
+			c=[i,j]
+			graph.addNode(index,c)
+			index = index + 1
+	c=[]
+	index=0
+	for i in range(m):
+		for j in range(n):
+			node = index
+			if (i<=m-2 and j<=n-2):
+				node_right = index + 1
+				node_bottom = (i+1)*n + j
+				graph.addEdge(index,node,node_right)
+				graph.addEdge(index,node,node_bottom)
+				index = index + 1
+				
+			if(j==n-1 and i!=m-1):
+				node_bottom = (i+1)*n + j
+				graph.addEdge(index,node,node_bottom)
+				index = index + 1
+			
+			if(i==m-1 and j!=n-1):
+				node_right = index + 1
+				graph.addEdge(index,node,node_right)
+				index = index + 1
+		
+	
+			
+	return graph
 
 
 def grafoErdosRenyi(n, m, directed= False):
@@ -150,8 +184,22 @@ def grafoDorogovtsevMendes(n, directed= False):
 	graph.addEdge(0,0,1)
 	graph.addEdge(1,1,2)
 	graph.addEdge(2,2,0)
-
-			
+	
+	c=3
+	for i in range(3,n):
+		
+		graph.addNode(i)
+		
+		random_edge = random.randint(0,i-1)
+		
+		node1 = graph.edges[random_edge].start
+		node2 = graph.edges[random_edge].end
+		
+		graph.addEdge(c,i,node1)
+		graph.addEdge(c+1,i,node2)
+		
+		c = c + 2
+		
 	
 			
 	return graph
