@@ -16,9 +16,14 @@ if __name__ == "__main__":
 	
 	for n in nlist:
 	
-		gER = grafoErdosRenyi(n,500,False)
-		gER.saveGraphViz(f"ErdosRenyi{n}")
-
+		gER = grafoErdosRenyi(n,30,False)
+		gER.saveGraphViz(f"GeneratedGraphs(.gv)/ErdosRenyi{n}")
+		explored_nodes = []
+		DFS_Rtree = Graph()
+		
+		Tree_ER = gER.DFS_R(0, explored_nodes, DFS_Rtree)
+		Tree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi_{n}_DFS_R")
+"""
 		gGi = grafoGilbert(n,0.3,False)
 		gGi.saveGraphViz(f"Gilbert{n}")
 		
@@ -34,5 +39,5 @@ if __name__ == "__main__":
 		gDM = grafoDorogovtsevMendes(n,False)
 		gDM.saveGraphViz(f"DorogovtsevMendes{n}")
 		
-
+"""
 
