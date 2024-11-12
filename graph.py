@@ -77,6 +77,17 @@ class Graph:
 				
 			f.write("}\n")
 			
+			
+	def clear(self):
+		"""
+		Vacía el grafo
+		"""
+		self.nodes.clear()
+		self.edges.clear()
+		self.str_edges.clear()
+		
+		
+			
 	def neighbors(self, node, neighbors, mark_list):
 		for edge in self.edges:
 			if (edge.start == node and edge.end not in(mark_list)):
@@ -94,11 +105,15 @@ class Graph:
 		BFS_Tree = Graph()
 		
 		q = queue.Queue()
-		q.put(s)
-		
 		explored_nodes = []
 		
 		neighbors = []
+		
+		nlist = []
+		self.neighbors(s, nlist, explored_nodes)
+		q.put(s)
+		
+		
 		i=0
 		while q.empty() != True:
 			node = q.get()
@@ -107,11 +122,12 @@ class Graph:
 			neighbors = self.neighbors(node, neighbors, explored_nodes)
 			print(neighbors)
 			for n in neighbors:
-				e = Edge(i, node, n)
-				print (f"{i} = {node}, {n} \n")
-				BFS_Tree.edges.append(e)
-				q.put(n)
-				i = i + 1
+				if edge.end not in(mark_list):
+					e = Edge(i, node, n)
+					print (f"{i} = {node}, {n} \n")
+					BFS_Tree.edges.append(e)
+					q.put(n)
+					i = i + 1
 			neighbors.clear()
 			
 		return BFS_Tree
@@ -147,4 +163,38 @@ class Graph:
 		return tree
 		
 				
+	def DFS_I(self, s):
+		"""
+		"""
+		DFS_iTree = Graph()
+		
+		stack = []
+		stack.append(s)
+		
+		explored_nodes = []
+		
+		neighbors = []
+		i=0
+		while len(stack)>0:
+			node = stack.pop()
+			print(f"{node}\n")
+			explored_nodes.append(node)
+			neighbors = self.neighbors(node, neighbors, explored_nodes)
+			print(neighbors)
+			for n in neighbors:
+				e = Edge(i, node, n)
+				print (f"{i} = {node}, {n} \n")
+				DFS_iTree.edges.append(e)
+				stack.append(n)
+				i = i + 1
+			neighbors.clear()
+			
+		return DFS_iTree
+		
+
+		
+		
+		
+		
+		
 		
