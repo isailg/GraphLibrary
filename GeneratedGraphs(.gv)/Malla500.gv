@@ -1,4 +1,4 @@
-graph Malla500 {
+graph GeneratedGraphs(.gv)/Malla500 {
 0 -- 1;
 0 -- 250;
 1 -- 2;

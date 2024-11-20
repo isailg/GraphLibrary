@@ -1,5 +1,5 @@
 import math
-
+import queue
 
 from node import Node
 from edge import Edge
@@ -68,7 +68,7 @@ class Graph:
 		"""
 		Exporta un archivo .gv que enumera los aristas del grafo
 		"""
-		named = "GraphViz/"+ name +".gv"
+		named = name +".gv"
 		with open(named, 'w') as f:
 			f.write("graph " + name +  " {\n")
 			
@@ -76,5 +76,125 @@ class Graph:
 				f.write(f"{edge.start} -- {edge.end};\n")
 				
 			f.write("}\n")
+			
+			
+	def clear(self):
+		"""
+		Vacía el grafo
+		"""
+		self.nodes.clear()
+		self.edges.clear()
+		self.str_edges.clear()
+		
+		
+			
+	def neighbors(self, node, neighbors, mark_list):
+		for edge in self.edges:
+			if (edge.start == node and edge.end not in(mark_list)):
+				neighbors.append(edge.end)
 
+			if (edge.end == node and edge.start not in(mark_list)):
+				neighbors.append(edge.start)
+
+		return neighbors
+		
+
+	def BFS(self, s):
+		"""
+		"""
+		BFS_Tree = Graph()
+		
+		q = queue.Queue()
+		explored_nodes = []
+		
+		neighbors = []
+		
+		nlist = []
+		self.neighbors(s, nlist, explored_nodes)
+		q.put(s)
+		
+		
+		i=0
+		while q.empty() != True:
+			node = q.get()
+			print(f"{node}\n")
+			explored_nodes.append(node)
+			neighbors = self.neighbors(node, neighbors, explored_nodes)
+			print(neighbors)
+			for n in neighbors:
+				if edge.end not in(mark_list):
+					e = Edge(i, node, n)
+					print (f"{i} = {node}, {n} \n")
+					BFS_Tree.edges.append(e)
+					q.put(n)
+					i = i + 1
+			neighbors.clear()
+			
+		return BFS_Tree
+		
+		
+		
+		
+		
+	def DFS_R(self, s, explored_nodes, tree):
+		"""
+		"""
+		
+		neighbors = []
+		
+		node = s
+		print(f"{node}\n")
+		
+		explored_nodes.append(node)
+		
+		neighbors = self.neighbors(node, neighbors, explored_nodes)
+		
+		print(neighbors)
+		i=0
+		for n in neighbors:
+			
+			e = Edge(i, node, n)
+			print (f"{i} = {node}, {n} \n")
+			tree.edges.append(e)
+			self.DFS_R(n, explored_nodes, tree)		
+		
+		neighbors.clear()
+			
+		return tree
+		
+				
+	def DFS_I(self, s):
+		"""
+		"""
+		DFS_iTree = Graph()
+		
+		stack = []
+		stack.append(s)
+		
+		explored_nodes = []
+		
+		neighbors = []
+		i=0
+		while len(stack)>0:
+			node = stack.pop()
+			print(f"{node}\n")
+			explored_nodes.append(node)
+			neighbors = self.neighbors(node, neighbors, explored_nodes)
+			print(neighbors)
+			for n in neighbors:
+				e = Edge(i, node, n)
+				print (f"{i} = {node}, {n} \n")
+				DFS_iTree.edges.append(e)
+				stack.append(n)
+				i = i + 1
+			neighbors.clear()
+			
+		return DFS_iTree
+		
+
+		
+		
+		
+		
+		
 		
