@@ -15,10 +15,11 @@ if __name__ == "__main__":
 	nlist = [30,100,500]
 	
 	for n in nlist:
-		
+		'''
 		gER = grafoErdosRenyi(n,100,False)
 		gER.saveGraphViz(f"GeneratedGraphs(.gv)/ErdosRenyi{n}")
 		
+        
 		"""
 		BFS_ER = gER.BFS(12)
 		BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi_{n}_BFS")
@@ -87,7 +88,7 @@ if __name__ == "__main__":
 		ITree_ER = gGe.DFS_I(12)
 		ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/GeograficoSimple{n}_DFS_I")
 		"""
-		
+		'''
 		gBA = grafoBarabasiAlbert(n,6,False)
 		gBA.saveGraphViz(f"GeneratedGraphs(.gv)/BarabasiAlbert{n}")
 		
@@ -105,10 +106,10 @@ if __name__ == "__main__":
 		ITree_ER = gBA.DFS_I(12)
 		ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/BarabasiAlbert{n}_DFS_I")
 		"""
-		
+		'''
 		gDM = grafoDorogovtsevMendes(n,False)
 		gDM.saveGraphViz(f"GeneratedGraphs(.gv)/DorogovtsevMendes{n}")
-		
+		'''
 		"""
 		BFS_ER = gDM.BFS(12)
 		BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/DorogovtsevMendes{n}_BFS")
