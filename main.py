@@ -10,29 +10,29 @@ from edge import Edge
 from algorithms import *
 
 if __name__ == "__main__":
-	
-	
-	nlist = [30,100,500]
-	
-	for n in nlist:
-	
-		gER = grafoErdosRenyi(n,500,False)
-		gER.saveGraphViz(f"ErdosRenyi{n}")
+    
+    
+    nlist = [30,100,500]
+    
+    for n in nlist:
+        
+        gER = grafoErdosRenyi(n,500,False)
+        gER.saveGraphViz(f"ErdosRenyi{n}")
 
-		gGi = grafoGilbert(n,0.3,False)
-		gGi.saveGraphViz(f"Gilbert{n}")
-		
-		gM = grafoMalla(n,int(n/2),False)
-		gM.saveGraphViz(f"Malla{n}")
+        gGi = grafoGilbert(n,0.3,False)
+        gGi.saveGraphViz(f"Gilbert{n}")
+        
+        gM = grafoMalla(n,int(n/2),False)
+        gM.saveGraphViz(f"Malla{n}")
 
-		gGe = grafoGeografico(n,0.6,False)
-		gGe.saveGraphViz(f"GeograficoSimple{n}")
+        gGe = grafoGeografico(n,0.6,False)
+        gGe.saveGraphViz(f"GeograficoSimple{n}")
+        
+        gBA = grafoBarabasiAlbert(n,6,False)
+        gBA.saveGraphViz(f"BarabasiAlbert{n}")
+        
+        gDM = grafoDorogovtsevMendes(n,False)
+        gDM.saveGraphViz(f"DorogovtsevMendes{n}")
 
-		gBA = grafoBarabasiAlbert(n,6,False)
-		gBA.saveGraphViz(f"BarabasiAlbert{n}")
-
-		gDM = grafoDorogovtsevMendes(n,False)
-		gDM.saveGraphViz(f"DorogovtsevMendes{n}")
-		
 
 
