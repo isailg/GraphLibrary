@@ -1,4 +1,4 @@
-graph GeneratedGraphs(.gv)/Malla30 {
+graph Malla30 {
 0 -- 1;
 0 -- 15;
 1 -- 2;
