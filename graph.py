@@ -54,28 +54,25 @@ class Graph:
 			self.str_edges.append(cur_edge)
 			
 	def getDegree(self, node):
-		"""
-		Calcula el grado del nodo
-		"""
-		d=0
-		for edge in self.edges:
-			if ((edge.start == node) or (edge.end == node) ):
-				d = d + 1
 
-		return d
+                """ Calcula el grado del nodo """
+                d=0
+                for edge in self.edges:
+                        if ((edge.start == node) or (edge.end == node) ):
+                                d = d + 1
+                return d
 		
 	def saveGraphViz(self, name):
+                """ Exporta un archivo .gv que enumera los aristas del grafo
 		"""
-		Exporta un archivo .gv que enumera los aristas del grafo
-		"""
-		named = name +".gv"
-		with open(named, 'w') as f:
-			f.write("graph " + name +  " {\n")
-			
-			for edge in self.edges:
-				f.write(f"{edge.start} -- {edge.end};\n")
-				
-			f.write("}\n")
+                named = name +".gv"
+                with open(named, 'w') as f:
+                        f.write("graph " + name +  " {\n")
+
+                        for edge in self.edges:
+                                f.write(f"{edge.start} -- {edge.end};\n")
+
+                        f.write("}\n")
 			
 			
 	def clear(self):
@@ -190,11 +187,4 @@ class Graph:
 			neighbors.clear()
 			
 		return DFS_iTree
-		
-
-		
-		
-		
-		
-		
-		
+        

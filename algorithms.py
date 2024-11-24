@@ -133,37 +133,39 @@ def grafoGeografico(n, r, directed= False):
 
 
 def grafoBarabasiAlbert(n, d, directed= False):
-    """
-    Genera grafo aleatorio con el modelo Barabasi-Albert
+
+    """ Genera grafo aleatorio con el modelo Barabasi-Albert
+
     Entrada:
         n: número de nodos (>0)
         d: grado máximo esperado por cada nodo (>1)
         directed: Es dirigido o no
+
     Salida:
         Grafo
     """ 
+
     graph = Graph()
     
-
     graph.addNode(0)
-    c = 2
+    
     for i in range(1,n):
         graph.addNode(i)
         randomNodes = random.sample(range(i),i) 
-        conected = False
+        
         j=0
-        while (conected == False) and (j < i):
-        #for j in range(i):
-            node = graph.nodes[randomNodes[j]]        
+        for j in range(i):
+            node = randomNodes[j]    
             deg = graph.getDegree(node)
-            p = 1 - deg / d        
+            print(f"ns={node}  nf={i} deg = {deg}")
+            p = 1 - (deg / d)        
             
             
             if random.random() <= p:
                 if (i!=randomNodes[j]):
-                    graph.addEdge(c,i,randomNodes[j])
-                    c = c + 1
-                    conected = True
+                    graph.addEdge(i,i,randomNodes[j])
+
+            j = j + 1
                     
     return graph
 
