@@ -1,4 +1,0 @@
-graph CalculatedGraphs(.gv)/ErdosRenyi_100_BFS {
-12 -- 21;
-12 -- 91;
-}
