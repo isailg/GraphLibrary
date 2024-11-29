@@ -7,125 +7,135 @@ from graph import Graph
 from node import Node
 from edge import Edge
 from algorithms import *
-
+import sys
 
 if __name__ == "__main__":
-
-    #Cantidad de nodos para generar grafos
-    nlist = [100]
-
+    
+    #Aumentando el limite de recursiones para DFS Recursivo
+    sys.setrecursionlimit(15003)
+    
+    nlist = [30,100,500]
+    
     for n in nlist:
-        #Inicializando lista de nodos marcados y árbol inducido para algoritmo recursivo DFS
-        marked_nodes = []
-        recursive_DFS_tree = Graph()
         
-        #Generación de grafo con algoritmo Erdos Renyi
-        gER = grafoDorogovtsevMendes(n,False)
-        #gER.saveGraphViz(f"GeneratedGraphs(.gv)/ErdosRenyi{n}")
-        #Se escoge automáticamente el nodo raíz para la búsqueda (Un nodo conectado)
-        #s = gER.chooseRoot()
-                
-        #Se aplica algoritmo BFS y se exporta el árbol inducido en archivo .gv
-        #BFS_ER = gER.BFS(12)
-        #BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/GeograficoSimple_{n}_BFS")
-        """
-        gER.DFS_R(12, marked_nodes, recursive_DFS_tree)
-        recursive_DFS_tree.saveGraphViz(f"CalculatedGraphs(.gv)/Malla_{n}_DFS_R")
-        recursive_DFS_tree.clear()
-        marked_nodes.clear()
+        visited_nodes = []
+        rDFS_tree = Graph()
         
-        """
-	ITree_ER = gER.DFS_I(12)
-	ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/DorogovtsevMendes_{n}_DFS_I")
-
+        """ Erdos Renyi """
+        #Generacion de grafo
+        gER = grafoErdosRenyi(n,500, False)
+        gER.saveGraphViz(f"GeneratedGraphs(.gv)/ErdosRenyi{n}")
         
-        """
-		gGi = grafoGilbert(n,0.3,False)
-		gGi.saveGraphViz(f"GeneratedGraphs(.gv)/Gilbert{n}")
-		"""
-        """			
-		BFS_ER = gGi.BFS(12)
-		BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Gilbert{n}_BFS")
-		
-		explored_nodes = []
-		DFS_Rtree = Graph()
-		RTree_ER = gGi.DFS_R(12, explored_nodes, DFS_Rtree)
-		RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Gilbert{n}_DFS_R")
-		DFS_Rtree.clear()
-		explored_nodes.clear()
-		
-		ITree_ER = gGi.DFS_I(12)
-		ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Gilbert{n}_DFS_I")
-        """
-        """
-		gM = grafoMalla(n,int(n/2),False)
-		gM.saveGraphViz(f"GeneratedGraphs(.gv)/Malla{n}")
-		"""
-        """	
-		BFS_ER = gM.BFS(12)
-		BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Malla{n}_BFS")
-		
-		explored_nodes = []
-		DFS_Rtree = Graph()
-		RTree_ER = gM.DFS_R(12, explored_nodes, DFS_Rtree)
-		RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Malla{n}_DFS_R")
-		DFS_Rtree.clear()
-		explored_nodes.clear()
-		
-		ITree_ER = gM.DFS_I(12)
-		ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Malla{n}_DFS_I")
-		"""
-        """
-		gGe = grafoGeografico(n,0.6,False)
-		gGe.saveGraphViz(f"GeneratedGraphs(.gv)/GeograficoSimple{n}")
-		"""
-        """
-		BFS_ER = gGe.BFS(12)
-		BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/GeograficoSimple{n}_BFS")
-		
-		explored_nodes = []
-		DFS_Rtree = Graph()
-		RTree_ER = gGe.DFS_R(12, explored_nodes, DFS_Rtree)
-		RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/GeograficoSimple{n}_DFS_R")
-		DFS_Rtree.clear()
-		explored_nodes.clear()
-		
-		ITree_ER = gGe.DFS_I(12)
-		ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/GeograficoSimple{n}_DFS_I")
-		"""
-        """
-		gBA = grafoBarabasiAlbert(n,6,False)
-		gBA.saveGraphViz(f"GeneratedGraphs(.gv)/BarabasiAlbert{n}")
-		"""
-        """	
-		BFS_ER = gBA.BFS(12)
-		BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/BarabasiAlbert{n}_BFS")
-		
-		explored_nodes = []
-		DFS_Rtree = Graph()
-		RTree_ER = gBA.DFS_R(12, explored_nodes, DFS_Rtree)
-		RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/BarabasiAlbert{n}_DFS_R")
-		DFS_Rtree.clear()
-		explored_nodes.clear()
-		
-		ITree_ER = gBA.DFS_I(12)
-		ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/BarabasiAlbert{n}_DFS_I")
-		"""
-        """
-		gDM = grafoDorogovtsevMendes(n,False)
-		gDM.saveGraphViz(f"GeneratedGraphs(.gv)/DorogovtsevMendes{n}")
-		"""
-        """
-		BFS_ER = gDM.BFS(12)
-		BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/DorogovtsevMendes{n}_BFS")
-		
-		explored_nodes = []
-		DFS_Rtree = Graph()
-		RTree_ER = gDM.DFS_R(12, explored_nodes, DFS_Rtree)
-		RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/DorogovtsevMendes{n}_DFS_R")
-		DFS_Rtree.clear()
-		explored_nodes.clear()
-		
-		ITree_ER = gDM.DFS_I(12)
-		ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/DorogovtsevMendes{n}_DFS_I")
-        """
+        #Aplicando BFS
+        BFS_ER = gER.BFS(12)
+        BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi_{n}_BFS")
+        
+        #Aplicando DFS Recursivo
+        gER.DFS_R(12, visited_nodes, rDFS_tree)
+        rDFS_tree.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi_{n}_DFS_R")
+        rDFS_tree.clear()
+        visited_nodes.clear()
+        
+        #Aplicando DFS Iterativo
+        ITree_ER = gER.DFS_I(12)
+        ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi{n}_DFS_I")
+        
+        
+        """ Gilbert """
+        #Generacion de grafo
+        gGi = grafoGilbert(n,0.3,False)
+        gGi.saveGraphViz(f"GeneratedGraphs(.gv)/Gilbert{n}")
+        
+        #Aplicando BFS
+        BFS_ER = gGi.BFS(12)
+        BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Gilbert{n}_BFS")
+        
+        #Aplicando DFS Recursivo
+        RTree_ER = gGi.DFS_R(12, visited_nodes, rDFS_tree)
+        RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Gilbert{n}_DFS_R")
+        rDFS_tree.clear()
+        visited_nodes.clear()
+        
+        #Aplicando DFS Recursivo
+        ITree_ER = gGi.DFS_I(12)
+        ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Gilbert{n}_DFS_I")
+        
+        
+        """ Malla """
+        #Generacion de grafo
+        gM = grafoMalla(n,30,False)
+        gM.saveGraphViz(f"GeneratedGraphs(.gv)/Malla{n}")
+        
+        #Aplicando BFS
+        BFS_ER = gM.BFS(12)
+        BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Malla{n}_BFS")
+        
+        #Aplicando DFS Recursivo
+        RTree_ER = gM.DFS_R(12, visited_nodes, rDFS_tree)
+        RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Malla{n}_DFS_R")
+        rDFS_tree.clear()
+        visited_nodes.clear()
+        
+        #Aplicando DFS Recursivo
+        ITree_ER = gM.DFS_I(12)
+        ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Malla{n}_DFS_I")
+        
+        
+        """ Geografico Simple """
+        #Generacion de grafo
+        gGe = grafoGeografico(n,0.6,False)
+        gGe.saveGraphViz(f"GeneratedGraphs(.gv)/GeograficoSimple{n}")
+        
+        #Aplicando BFS
+        BFS_ER = gGe.BFS(12)
+        BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/GeograficoSimple{n}_BFS")
+        
+        #Aplicando DFS Recursivo
+        RTree_ER = gGe.DFS_R(12, visited_nodes, rDFS_tree)
+        RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/GeograficoSimple{n}_DFS_R")
+        rDFS_tree.clear()
+        visited_nodes.clear()
+        
+        #Aplicando DFS Recursivo
+        ITree_ER = gGe.DFS_I(12)
+        ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/GeograficoSimple{n}_DFS_I")
+        
+        
+        """ Barabasi Albert """
+        #Generacion de grafo
+        gBA = grafoBarabasiAlbert(n,6,False)
+        gBA.saveGraphViz(f"GeneratedGraphs(.gv)/BarabasiAlbert{n}")
+        
+        #Aplicando BFS
+        BFS_ER = gBA.BFS(12)
+        BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/BarabasiAlbert{n}_BFS")
+        
+        #Aplicando DFS Recursivo
+        RTree_ER = gBA.DFS_R(12, visited_nodes, rDFS_tree)
+        RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/BarabasiAlbert{n}_DFS_R")
+        rDFS_tree.clear()
+        visited_nodes.clear()
+        
+        #Aplicando DFS Recursivo
+        ITree_ER = gBA.DFS_I(12)
+        ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/BarabasiAlbert{n}_DFS_I")
+        
+        
+        """ Dorogovtsev Mendes """
+        #Generacion de grafo
+        gDM = grafoDorogovtsevMendes(n,False)
+        gDM.saveGraphViz(f"GeneratedGraphs(.gv)/DorogovtsevMendes{n}")
+        
+        #Aplicando BFS
+        BFS_ER = gDM.BFS(12)
+        BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/DorogovtsevMendes{n}_BFS")
+        
+        #Aplicando DFS Recursivo
+        RTree_ER = gDM.DFS_R(12, visited_nodes, rDFS_tree)
+        RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/DorogovtsevMendes{n}_DFS_R")
+        rDFS_tree.clear()
+        visited_nodes.clear()
+        
+        #Aplicando DFS Recursivo
+        ITree_ER = gDM.DFS_I(12)
+        ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/DorogovtsevMendes{n}_DFS_I")

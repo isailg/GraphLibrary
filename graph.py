@@ -76,15 +76,20 @@ class Graph:
         
         
         def clear(self):
+            
             """ Vacía el grafo """
+            
             self.nodes.clear()
             self.edges.clear()
             self.str_edges.clear()
             
             
         def neighbors(self, node, mark_list):
+            
             """ Encuentra los nodos vecinos de node que no estan marcados como visitados """
+            
             neighbors = []
+            
             for edge in self.edges:
                 if (edge.start == node and edge.end not in(mark_list)):
                     neighbors.append(edge.end)
@@ -110,6 +115,7 @@ class Graph:
             q = queue.Queue()
             
             marked_nodes = []
+            neighbors = []
             
             q.put(s)
             
@@ -132,8 +138,20 @@ class Graph:
                 
             return BFS_Tree
         
-        def DFS_R(self, s, explored_nodes, tree):
-            """
+        def DFS_R(self, s, marked_nodes, tree):
+            
+            """ Método para aplicar DFS recursivo al grafo seleccionado
+                Nota: Siendo este un algoritmo recursivo, se tiene que dar de entrada
+                una lista global de nodos visitados y un grafo global que terminará siendo el árbol
+                inducido por DFS recursivo.
+                    
+                    Entrada:
+                        s = Nodo raíz
+                        marked_nodes = Lista de nodos ya visitados
+                        tree = Árbol generado por las recursiones anteriores de DFS, inicia vacío.
+                    
+                    Salida:
+                        tree = Árbol inducido por DFS Algorithm
             """
             
             neighbors = []
@@ -141,50 +159,63 @@ class Graph:
             node = s
             print(f"{node}\n")
             
-            explored_nodes.append(node)
+            marked_nodes.append(node)
             
-            neighbors = self.neighbors(node, explored_nodes)
+            neighbors = self.neighbors(node, marked_nodes)
             
             print(neighbors)
             i=0
             for n in neighbors:
-                if n not in(explored_nodes):
+                if n not in(marked_nodes):
                     e = Edge(i, node, n)
                     print (f"{i} = {node}, {n} \n")
                     tree.edges.append(e)
-                    explored_nodes.append(n)
-                    self.DFS_R(n, explored_nodes, tree)
-                    
+                    marked_nodes.append(n)
+                    self.DFS_R(n, marked_nodes, tree)    
             neighbors.clear()
                 
             return tree
             
                     
         def DFS_I(self, s):
+            
+            """ Método para aplicar DFS Iterativo al grafo seleccionado
+                    
+                    Entrada:
+                        s = Nodo raíz
+                    
+                    Salida:
+                        DFS_iTree = Árbol inducido por DFS Iterativo
             """
-            """
+            
             DFS_iTree = Graph()
             
             stack = []
             stack.append(s)
             
-            explored_nodes = []
+            marked_nodes = []
             
             neighbors = []
             i=0
             while len(stack)>0:
                 node = stack.pop()
                 print(f"{node}\n")
-                explored_nodes.append(node)
-                neighbors = self.neighbors(node, neighbors, explored_nodes)
+                marked_nodes.append(node)
+                neighbors = self.neighbors(node, marked_nodes)
                 print(neighbors)
-                for n in neighbors:
-                    e = Edge(i, node, n)
-                    print (f"{i} = {node}, {n} \n")
-                    DFS_iTree.edges.append(e)
-                    explored_nodes.append(n)
-                    stack.append(n)
-                    i = i + 1
+                j=0
+                connected = False
+                while connected !=True and len(neighbors)>0:
+                    n = neighbors[j]
+                    if n not in(marked_nodes):
+                        e = Edge(i, node, n)
+                        print (f"{i} = {node}, {n} \n")
+                        DFS_iTree.edges.append(e)
+                        marked_nodes.append(n)
+                        stack.append(n)
+                        connected = True
+                        i = i + 1
+                    j=j+1
                 neighbors.clear()
                 
             return DFS_iTree
