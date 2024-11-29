@@ -1,4 +1,4 @@
-graph CalculatedGraphs(.gv)/Malla_30_BFS {
+graph CalculatedGraphs(.gv)/Malla30_BFS {
 12 -- 11;
 12 -- 13;
 12 -- 42;
