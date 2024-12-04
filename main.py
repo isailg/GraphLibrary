@@ -7,14 +7,10 @@ from graph import Graph
 from node import Node
 from edge import Edge
 from algorithms import *
-import sys
 
 if __name__ == "__main__":
     
-    #Aumentando el limite de recursiones para DFS Recursivo
-    sys.setrecursionlimit(16000)
-    
-    nlist = [30]
+    nlist = [30, 300]
     namelist = ["pocos", "muchos"]
     k=0
     
