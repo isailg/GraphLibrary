@@ -30,14 +30,14 @@ class Graph:
                 for i in range(len(self.nodes)):
                         print(self.nodes[i].id, self.nodes[i].x,self.nodes[i].y)
 
-        def addNode(self,id,x=0,y=0):
+        def addNode(self,id,x=0,y=0,label=""):
                 
                 """ Método para agregar un nodo al grafo """
 
-                nod = Node(id,x,y)
+                nod = Node(id,x,y,label)
                 self.nodes.append(nod)
 
-        def addEdge(self, id, start, end):
+        def addEdge(self, id, start, end, weight=0):
                 
                 """ Método para agregar una arista al grafo """
 
@@ -46,7 +46,7 @@ class Graph:
                 
                 #verifica si el arista existe en el grafo, si no lo agrega
                 if not( (cur_edge in self.str_edges) or (curv_edge in self.str_edges)):
-                        e = Edge(id, start, end)
+                        e = Edge(id, start, end, weight)
                         self.edges.append(e)
                         self.str_edges.append(cur_edge)
 
@@ -70,7 +70,7 @@ class Graph:
                         f.write("graph " + name +  " {\n")
 
                         for edge in self.edges:
-                                f.write(f"{edge.start} -- {edge.end};\n")
+                                f.write(f"{edge.start} -- {edge.end} [label = {str(edge.weight)}];\n")
 
                         f.write("}\n")
         
@@ -84,17 +84,17 @@ class Graph:
             self.str_edges.clear()
             
             
-        def neighbors(self, node, mark_list):
+        def neighbors(self, node):
             
             """ Encuentra los nodos vecinos de node que no estan marcados como visitados """
             
             neighbors = []
             
             for edge in self.edges:
-                if (edge.start == node and edge.end not in(mark_list)):
+                if (edge.start == node):
                     neighbors.append(edge.end)
 
-                if (edge.end == node and edge.start not in(mark_list)):
+                if (edge.end == node):
                     neighbors.append(edge.start)
 
             return neighbors
@@ -157,21 +157,18 @@ class Graph:
             neighbors = []
             
             node = s
-            print(f"{node}\n")
             
             marked_nodes.append(node)
             
             neighbors = self.neighbors(node, marked_nodes)
             
-            print(neighbors)
             i=0
             for n in neighbors:
                 if n not in(marked_nodes):
                     e = Edge(i, node, n)
-                    print (f"{i} = {node}, {n} \n")
                     tree.edges.append(e)
                     marked_nodes.append(n)
-                    self.DFS_R(n, marked_nodes, tree)    
+                    self.DFS_R(n, marked_nodes, tree) 
             neighbors.clear()
                 
             return tree
@@ -215,8 +212,75 @@ class Graph:
                         stack.append(n)
                         connected = True
                         i = i + 1
+                    
                     j=j+1
                 neighbors.clear()
                 
             return DFS_iTree
+        
+        def dfs(self,s):
+                        
+            """ Método para aplicar DFS a un grafo para verificar si hay ciclos en él 
+                    
+                    Entrada:
+                        s = Nodo raíz
+                    
+                    Salida:
+                        cycle = True or False
+            """
+            stack = []
+            stack.append(s)
             
+            marked_nodes = []
+            cycle = False
+            neighbors = []
+            i=0
+            while len(stack)>0 and cycle==False:
+                node = stack.pop()
+                print(node)
+
+                print(marked_nodes)
+                if node in(marked_nodes):
+                    cycle = True
+                else:
+                    neighbors = self.neighbors(node)
+                    print (neighbors)
+                    for n in neighbors:
+                        if n not in(marked_nodes):
+                            stack.append(n)
+
+                neighbors.clear()
+                marked_nodes.append(node)
+                print(cycle)
+                print("end iteration")
+            return cycle
+        
+        def Kruskal_D(self):
+            """ Método para aplicar algoritmo directo de Kruskal a grafo
+            
+                Entrada:
+                Salida:
+                    total : (Impreso en consola) Peso total del árbol
+                    MST: Minimun Spanning Tree inducido por el Kruskal Directo 
+            """
+            
+            M = Graph()
+            
+            #Ordenar aristas de forma ascendente de acuerdo a su peso
+            self.edges.sort(key=lambda value: value.weight)
+            
+            i=0
+            #Verificar arista por arista en orden ascendente con respecto a su peso
+            for edge in self.edges:
+                
+                #Verificar si el arista que se dese agregar generaría un ciclo                
+                M.edges.append(edge)
+                cycle = M.dfs(edge.start) 
+                M.edges.pop()
+
+                # Se agrega en caso que no genere un ciclo 
+                if cycle == False:
+                    M.addEdge(i,edge.start,edge.end,edge.weight)
+                    i=i+1
+                
+            return M
