@@ -40,19 +40,23 @@ def grafoMalla(m, n, directed= False):
             if (i<=m-2 and j<=n-2):
                 node_right = index + 1
                 node_bottom = (i+1)*n + j
-                graph.addEdge(index,node,node_right)
-                graph.addEdge(index,node,node_bottom)
+                w = round(random.random()*100,2) #Peso aleatorio de arista
+                graph.addEdge(index,node,node_right,w)
+                w = round(random.random()*100,2) #Peso aleatorio de arista
+                graph.addEdge(index,node,node_bottom,w)
                 index = index + 1
 
             #A la derecha, última fila
             if(j==n-1 and i!=m-1):
                 node_bottom = (i+1)*n + j
-                graph.addEdge(index,node,node_bottom)
+                w = round(random.random()*100,2) #Peso aleatorio de arista
+                graph.addEdge(index,node,node_bottom,w)
                 index = index + 1
             #Hacia abajo, última columna
             if(i==m-1 and j!=n-1):
                 node_right = index + 1
-                graph.addEdge(index,node,node_right)
+                w = round(random.random()*100,2) #Peso aleatorio de arista
+                graph.addEdge(index,node,node_right,w)
                 index = index + 1
             
     return graph
@@ -82,7 +86,8 @@ def grafoErdosRenyi(n, m, directed= False):
         n1 = random.randint(0,n-1)
         n2 = random.randint(0,n-1)
         if n1 != n2:
-            graph.addEdge(i,n1,n2)
+            w = round(random.random()*100,2) #Peso aleatorio de arista
+            graph.addEdge(i,n1,n2,w)
             
     return graph
         
@@ -112,7 +117,8 @@ def grafoGilbert(n, p, directed= False):
     for i in range(n):
         for j in range(n):
             if (random.random()<=p):
-                graph.addEdge(c,i,j)
+                w = round(random.random()*100,2) #Peso aleatorio de arista
+                graph.addEdge(c,i,j,w)
                 c = c + 1
     return graph
     
@@ -151,7 +157,8 @@ def grafoGeografico(n, r, directed= False):
             dist = sqrt((x2-x1)**2+(y2-y1)**2)
             
             if (dist<=r):
-                graph.addEdge(c,i,j)
+                w = round(random.random()*100,2) #Peso aleatorio de arista
+                graph.addEdge(c,i,j,w)
                 c = c + 1
     return graph
 
@@ -194,7 +201,8 @@ def grafoBarabasiAlbert(n, d, directed= False):
             
             if random.random() <= p:
                 if (i!=randomNodes[j]):
-                    graph.addEdge(i,i,randomNodes[j])
+                    w = round(random.random()*100,2) #Peso aleatorio de arista
+                    graph.addEdge(i,i,randomNodes[j],w)
 
             j = j + 1
                     
@@ -219,9 +227,10 @@ def grafoDorogovtsevMendes(n, directed= False):
         graph.addNode(i)
 
     #Formando el primer triángulo
-    graph.addEdge(0,0,1)
-    graph.addEdge(1,1,2)
-    graph.addEdge(2,2,0)
+    w = round(random.random()*100,2) #Peso aleatorio de arista
+    graph.addEdge(0,0,1,w)
+    graph.addEdge(1,1,2,w)
+    graph.addEdge(2,2,0,w)
 
     #Agregando aristas
     c=3
@@ -235,9 +244,10 @@ def grafoDorogovtsevMendes(n, directed= False):
         #Conectando nuevo nodo a los nodos del arista escogido
         node1 = graph.edges[random_edge].start
         node2 = graph.edges[random_edge].end
-        
-        graph.addEdge(c,i,node1)
-        graph.addEdge(c+1,i,node2)
+        w = round(random.random()*100,2) #Peso aleatorio de arista
+        graph.addEdge(c,i,node1,w)
+        w = round(random.random()*100,2) #Peso aleatorio de arista
+        graph.addEdge(c+1,i,node2,w)
         
         c = c + 2
             
