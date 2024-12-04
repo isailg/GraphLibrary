@@ -12,36 +12,35 @@ import sys
 if __name__ == "__main__":
     
     #Aumentando el limite de recursiones para DFS Recursivo
-    sys.setrecursionlimit(15003)
+    sys.setrecursionlimit(16000)
     
-    nlist = [30,100,500]
+    nlist = [30]
+    namelist = ["pocos", "muchos"]
+    k=0
     
     for n in nlist:
         
-        visited_nodes = []
-        rDFS_tree = Graph()
+        c = namelist[k]
         
         """ Erdos Renyi """
         #Generacion de grafo
-        gER = grafoErdosRenyi(n,500, False)
-        gER.saveGraphViz(f"GeneratedGraphs(.gv)/ErdosRenyi{n}")
+        gER = grafoErdosRenyi(n,n, False)
+        gER.saveGraphViz(f"GeneratedGraphs(.gv)/ErdosRenyi_{c}({n})")
         
-        #Aplicando BFS
-        BFS_ER = gER.BFS(12)
-        BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi_{n}_BFS")
+        #Aplicando Kruskal Directo
+        MST = gER.Kruskal_D()
+        MST.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi_Kruskal_D_{c}({n})")
+        """
+        #Aplicando Kruskal Inverso
+        MST = gER.Kruskal_I()
+        MST.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi_Kruskal_I_{c}({n})")
         
-        #Aplicando DFS Recursivo
-        gER.DFS_R(12, visited_nodes, rDFS_tree)
-        rDFS_tree.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi_{n}_DFS_R")
-        rDFS_tree.clear()
-        visited_nodes.clear()
+        #Aplicando Prim algorithm
+        MST = gER.Prim()
+        MST.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi_Prim_{c}({n})")
+        """
         
-        #Aplicando DFS Iterativo
-        ITree_ER = gER.DFS_I(12)
-        ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi{n}_DFS_I")
-        
-        
-        """ Gilbert """
+        """ Gilbert 
         #Generacion de grafo
         gGi = grafoGilbert(n,0.3,False)
         gGi.saveGraphViz(f"GeneratedGraphs(.gv)/Gilbert{n}")
@@ -61,7 +60,7 @@ if __name__ == "__main__":
         ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Gilbert{n}_DFS_I")
         
         
-        """ Malla """
+        Malla 
         #Generacion de grafo
         gM = grafoMalla(n,30,False)
         gM.saveGraphViz(f"GeneratedGraphs(.gv)/Malla{n}")
@@ -81,7 +80,7 @@ if __name__ == "__main__":
         ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Malla{n}_DFS_I")
         
         
-        """ Geografico Simple """
+         Geografico Simple 
         #Generacion de grafo
         gGe = grafoGeografico(n,0.6,False)
         gGe.saveGraphViz(f"GeneratedGraphs(.gv)/GeograficoSimple{n}")
@@ -101,7 +100,7 @@ if __name__ == "__main__":
         ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/GeograficoSimple{n}_DFS_I")
         
         
-        """ Barabasi Albert """
+         Barabasi Albert 
         #Generacion de grafo
         gBA = grafoBarabasiAlbert(n,6,False)
         gBA.saveGraphViz(f"GeneratedGraphs(.gv)/BarabasiAlbert{n}")
@@ -121,7 +120,7 @@ if __name__ == "__main__":
         ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/BarabasiAlbert{n}_DFS_I")
         
         
-        """ Dorogovtsev Mendes """
+        Dorogovtsev Mendes 
         #Generacion de grafo
         gDM = grafoDorogovtsevMendes(n,False)
         gDM.saveGraphViz(f"GeneratedGraphs(.gv)/DorogovtsevMendes{n}")
@@ -139,3 +138,5 @@ if __name__ == "__main__":
         #Aplicando DFS Recursivo
         ITree_ER = gDM.DFS_I(12)
         ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/DorogovtsevMendes{n}_DFS_I")
+        """
+        k = k + 1
