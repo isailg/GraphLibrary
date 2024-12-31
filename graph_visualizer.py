@@ -32,10 +32,10 @@ class App:
     def spring_method(self, graph, name):
         WIDTH, HEIGHT = 1280, 720
         NODE_RADIUS = 10
-        k_attraction = 3  # Constante para fuerzas de atracción, 10 para Malla de 100 nodos
-        k_repulsion = 5000  # Constante para fuerzas de repulsión
+        k_attraction = 1  # Constante para fuerzas de atracción, 10 para Malla de 100 nodos
+        k_repulsion = 2000  # Constante para fuerzas de repulsión
         damping = 0.99  # Factor de amortiguación
-        ideal_length = 10 # Longitud ideal de las aristas
+        ideal_length = 25 # Longitud ideal de las aristas
         clock = pygame.time.Clock()
         
         # Configuración de OpenCV para grabar video
@@ -43,7 +43,7 @@ class App:
         fps = 60
         out = cv2.VideoWriter(name+".mp4", fourcc, fps, (WIDTH, HEIGHT))
         
-        nodes = {i: [random.randint(100, 700), random.randint(100, 500)] for i in range(len(graph.nodes))}
+        nodes = {i: [random.randint(100, 1250), random.randint(100, 690)] for i in range(len(graph.nodes))}
         
         edges = []
         for edge in graph.edges:
