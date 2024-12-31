@@ -30,82 +30,92 @@ class App:
         return math.sqrt((p1[0]-p2[0])**2+(p1[1]-p2[1])**2)
     
     def spring_method(self, graph, name):
-        WIDTH, HEIGHT = 1280, 720
-        NODE_RADIUS = 10
-        k_attraction = 1  # Constante para fuerzas de atracción, 10 para Malla de 100 nodos
-        k_repulsion = 2000  # Constante para fuerzas de repulsión
-        damping = 0.99  # Factor de amortiguación
-        ideal_length = 25 # Longitud ideal de las aristas
+        #Declaración de constantes
+        width, height = 1280, 720
+        vertex_size = 10
+        c1 = 1
+        c2 = 25
+        c3 = 2
+        c4 = 0.99
+
         clock = pygame.time.Clock()
         
-        # Configuración de OpenCV para grabar video
+        #OpenCV para grabar video
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         fps = 60
-        out = cv2.VideoWriter(name+".mp4", fourcc, fps, (WIDTH, HEIGHT))
+        out = cv2.VideoWriter(name+".mp4", fourcc, fps, (width, height))
         
+        #Conversión de nodos y aristas del grafo a listas
         nodes = {i: [random.randint(100, 1250), random.randint(100, 690)] for i in range(len(graph.nodes))}
-        
         edges = []
         for edge in graph.edges:
             e = (edge.start, edge.end)
             edges.append(e)
         
-        forces = {i: [0, 0] for i in range(len(graph.nodes))}
-
+        f = {i: [0, 0] for i in range(len(graph.nodes))}
+        
+        #Loop principal
         while (self._running):
             for event in pygame.event.get():
                 self.on_event(event)
-            
-            if True:# k<100:
-                forces = {i: [0, 0] for i in range(len(graph.nodes))}
+                
+            # Paso del método Spring
+            if True: #if(k<100): NOTA: Se pretendía usar solo 100iteraciones pero mejor sin limite
+                
+                #Lista de fuerzas calculadas, se reinicia en ceros en cada iteración
+                f = {i: [0, 0] for i in range(len(graph.nodes))}
 
-                # Fuerzas de repulsión
+                #Fuerzas de repulsión
                 for i in nodes:
                     for j in nodes:
                         if i != j:
                             dx = nodes[i][0] - nodes[j][0]
                             dy = nodes[i][1] - nodes[j][1]
-                            dist = max(self.distance(nodes[i], nodes[j]), ideal_length)
-                            force = k_repulsion / dist**2
-                            forces[i][0] += force * dx / dist
-                            forces[i][1] += force * dy / dist
-                # Fuerzas de atracción (logarítmicas)
+                            d = max(self.distance(nodes[i], nodes[j]), c2)
+                            force = c3 / math.sqrt(d)
+                            f[i][0] += force * dx / d
+                            f[i][1] += force * dy / d
+                
+                #Fuerzas de atracción
                 for edge in edges:
                     i , j = edge
                     dx = nodes[j][0] - nodes[i][0]
                     dy = nodes[j][1] - nodes[i][1]
-                    dist = max(self.distance(nodes[i], nodes[j]), ideal_length)
-                    force = k_attraction * math.log10(dist / ideal_length)
-                    forces[i][0] += force * dx / dist
-                    forces[i][1] += force * dy / dist
-                    forces[j][0] -= force * dx / dist
-                    forces[j][1] -= force * dy / dist
+                    d = max(self.distance(nodes[i], nodes[j]), c2)
+                    force = c1 * math.log10(d / c2)
+                    f[i][0] += force * dx / d
+                    f[i][1] += force * dy / d
+                    f[j][0] -= force * dx / d
+                    f[j][1] -= force * dy / d
 
-                # Actualizar posiciones de los nodos
+                #Actualización de posiciones de cada nodo
                 for i in nodes:
-                    nodes[i][0] += forces[i][0] * damping
-                    nodes[i][1] += forces[i][1] * damping
-                    nodes[i][0] = max(NODE_RADIUS, min(WIDTH - NODE_RADIUS, nodes[i][0]))
-                    nodes[i][1] = max(NODE_RADIUS, min(HEIGHT - NODE_RADIUS, nodes[i][1]))
+                    nodes[i][0] += f[i][0] * c4
+                    nodes[i][1] += f[i][1] * c4
+                    nodes[i][0] = max(vertex_size, min(width - vertex_size, nodes[i][0]))
+                    nodes[i][1] = max(vertex_size, min(height - vertex_size, nodes[i][1]))
             
+            #Se limpia la pantalla
             self._display_surf.fill((250,236,255))
             
+            #Se dibujan aristas en sus nuevas posiciones
             for edge in edges:
                 pygame.draw.line(self._display_surf, (100, 100, 100), nodes[edge[0]], nodes[edge[1]], 1)
+            
+            #Se dibujan nodos en sus nuevas posiciones
             for i in nodes:
-                pygame.draw.circle(self._display_surf, (8,54,159), (int(nodes[i][0]), int(nodes[i][1])), NODE_RADIUS)
+                pygame.draw.circle(self._display_surf, (8,54,159), (int(nodes[i][0]), int(nodes[i][1])), vertex_size)
             
-            # Capturar el frame actual de Pygame
-            frame = pygame.surfarray.array3d(self._display_surf)  # Capturar como array de numpy
-            frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  # Convertir de RGB a BGR para OpenCV
-            
-            frame = cv2.transpose(frame)  # Transponer para ajustar las dimensiones
-            #frame = cv2.flip(frame, 0)  # Voltear verticalmente
-            out.write(frame)  # Escribir frame en el video
+            #Conversión del pygame frame a OpenCV frame
+            frame = pygame.surfarray.array3d(self._display_surf)
+            frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+            frame = cv2.transpose(frame)
+            out.write(frame)
             
             pygame.display.flip()
             clock.tick(60)
-            #draw a straight-line segment for each edge
+            
+        #Se guarda el video OpenCV
         out.release()
 
     def on_cleanup(self):
@@ -114,16 +124,7 @@ class App:
     def on_execute(self,graph, name):
         if self.on_init() == False:
             self._running = False
-
-        #while (self._running):
-        #    for event in pygame.event.get():
-        #        self.on_event(event)
-        #    self.on_loop()
+        
         self.spring_method(graph, name)
-        #    pygame.display.update()
+        
         self.on_cleanup()
-
-
-#if __name__ == "__main__":
- #   graph = App()
-  #   graph.on_execute()
