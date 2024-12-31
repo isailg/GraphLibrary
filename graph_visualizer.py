@@ -4,6 +4,7 @@ from graph import Graph
 import random
 import math
 import numpy
+import cv2
 
 class App:
     def __init__(self):
@@ -28,14 +29,19 @@ class App:
     def distance(self,p1,p2):
         return math.sqrt((p1[0]-p2[0])**2+(p1[1]-p2[1])**2)
     
-    def spring_method(self, graph):
+    def spring_method(self, graph, name):
         WIDTH, HEIGHT = 1280, 720
         NODE_RADIUS = 10
-        k_attraction = 10  # Constante para fuerzas de atracción
+        k_attraction = 3  # Constante para fuerzas de atracción, 10 para Malla de 100 nodos
         k_repulsion = 5000  # Constante para fuerzas de repulsión
         damping = 0.99  # Factor de amortiguación
         ideal_length = 10 # Longitud ideal de las aristas
         clock = pygame.time.Clock()
+        
+        # Configuración de OpenCV para grabar video
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+        fps = 60
+        out = cv2.VideoWriter(name+".mp4", fourcc, fps, (WIDTH, HEIGHT))
         
         nodes = {i: [random.randint(100, 700), random.randint(100, 500)] for i in range(len(graph.nodes))}
         
@@ -88,15 +94,24 @@ class App:
                 pygame.draw.line(self._display_surf, (100, 100, 100), nodes[edge[0]], nodes[edge[1]], 1)
             for i in nodes:
                 pygame.draw.circle(self._display_surf, (8,54,159), (int(nodes[i][0]), int(nodes[i][1])), NODE_RADIUS)
-        
+            
+            # Capturar el frame actual de Pygame
+            frame = pygame.surfarray.array3d(self._display_surf)  # Capturar como array de numpy
+            frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)  # Convertir de RGB a BGR para OpenCV
+            
+            frame = cv2.transpose(frame)  # Transponer para ajustar las dimensiones
+            #frame = cv2.flip(frame, 0)  # Voltear verticalmente
+            out.write(frame)  # Escribir frame en el video
+            
             pygame.display.flip()
             clock.tick(60)
             #draw a straight-line segment for each edge
+        out.release()
 
     def on_cleanup(self):
         pygame.quit()
 
-    def on_execute(self,graph):
+    def on_execute(self,graph, name):
         if self.on_init() == False:
             self._running = False
 
@@ -104,7 +119,7 @@ class App:
         #    for event in pygame.event.get():
         #        self.on_event(event)
         #    self.on_loop()
-        self.spring_method(graph)
+        self.spring_method(graph, name)
         #    pygame.display.update()
         self.on_cleanup()
 
