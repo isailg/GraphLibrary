@@ -30,27 +30,27 @@ Este repositorio contiene el código del Proyecto 5 para la disposición de graf
 
 1. **Erdos Renyi (100 nodos):**  
    [Video](https://youtu.be/5EduNS-xFJU)  
-   ![ER100](screenshots/ER100.png)
+   ![ER100](Screenshots/ER100.png)
 
 2. **Gilbert (100 nodos):**  
    [Video](https://youtu.be/MLsXHUOz6e4)  
-   ![G100](screenshots/G100.png)
+   ![G100](Screenshots/G100.png)
 
 3. **Malla (100 nodos):**  
    [Video](https://youtu.be/bi2WEQ5GANs)  
-   ![M100](screenshots/M100.png)
+   ![M100](Screenshots/M100.png)
 
 4. **Geográfico Simple (100 nodos):**  
    [Video](https://youtu.be/oog0NbcE_EE)  
-   ![GS100](screenshots/GS100.png)
+   ![GS100](Screenshots/GS100.png)
 
 5. **Barabasi Albert (100 nodos):**  
    [Video](https://youtu.be/Huorce3k1P8)  
-   ![BA100](screenshots/BA100.png)
+   ![BA100](Screenshots/BA100.png)
 
 6. **Dorogovtsev Mendes (100 nodos):**  
    [Video](https://youtu.be/fgtcIJD-aJM)  
-   ![DM100](screenshots/DM100.png)
+   ![DM100](Screenshots/DM100.png)
 
 ---
 
@@ -58,24 +58,24 @@ Este repositorio contiene el código del Proyecto 5 para la disposición de graf
 
 1. **Erdos Renyi (500 nodos):**  
    [Video](https://youtu.be/s-WsNAkcmLI)  
-   ![ER500](screenshots/ER500.png)
+   ![ER500](Screenshots/ER500.png)
 
 2. **Gilbert (500 nodos):**  
    [Video](https://youtu.be/Y59tqj7AXpM)  
-   ![G500](screenshots/G500.png)
+   ![G500](Screenshots/G500.png)
 
 3. **Malla (500 nodos):**  
    [Video](https://youtu.be/T4qPPwqKUE0)  
-   ![M500](screenshots/M500.png)
+   ![M500](Screenshots/M500.png)
 
 4. **Geográfico Simple (500 nodos):**  
    [Video](https://youtu.be/waE75lSMPp8)  
-   ![GS500](screenshots/GS500.png)
+   ![GS500](Screenshots/GS500.png)
 
 5. **Barabasi Albert (500 nodos):**  
    [Video](https://youtu.be/YkWcyrPh_uY)  
-   ![BA500](screenshots/BA500.png)
+   ![BA500](Screenshots/BA500.png)
 
 6. **Dorogovtsev Mendes (500 nodos):**  
    [Video](https://youtu.be/W7dXZVRVlHM)  
-   ![DM500](screenshots/DM500.png)
+   ![DM500](Screenshots/DM500.png)
