@@ -8,6 +8,7 @@ from node import Node
 from edge import Edge
 from algorithms import *
 import sys
+import math
 
 if __name__ == "__main__":
     
@@ -63,7 +64,7 @@ if __name__ == "__main__":
         
         """ Malla """
         #Generacion de grafo
-        gM = grafoMalla(n,30,False)
+        gM = grafoMalla(int(math.sqrt(n)),int(math.sqrt(n))+1,False)
         gM.saveGraphViz(f"GeneratedGraphs(.gv)/Malla{n}")
         
         #Aplicando BFS

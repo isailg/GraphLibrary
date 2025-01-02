@@ -84,17 +84,17 @@ class Graph:
             self.str_edges.clear()
             
             
-        def neighbors(self, node, mark_list):
+        def neighbors(self, node):
             
             """ Encuentra los nodos vecinos de node que no estan marcados como visitados """
             
             neighbors = []
             
             for edge in self.edges:
-                if (edge.start == node and edge.end not in(mark_list)):
+                if (edge.start == node):
                     neighbors.append(edge.end)
 
-                if (edge.end == node and edge.start not in(mark_list)):
+                if (edge.end == node):
                     neighbors.append(edge.start)
 
             return neighbors
@@ -124,7 +124,7 @@ class Graph:
                 node = q.get()
                 print(f"{node}\n")
                 marked_nodes.append(node)
-                neighbors = self.neighbors(node, marked_nodes)
+                neighbors = self.neighbors(node)
                 print(neighbors)
                 for n in neighbors:
                     if n not in(marked_nodes):
@@ -161,7 +161,7 @@ class Graph:
             
             marked_nodes.append(node)
             
-            neighbors = self.neighbors(node, marked_nodes)
+            neighbors = self.neighbors(node)
             
             print(neighbors)
             i=0
@@ -193,29 +193,26 @@ class Graph:
             stack = []
             stack.append(s)
             
-            marked_nodes = []
+            marked_nodes = set()
             
             neighbors = []
             i=0
             while len(stack)>0:
+                print(stack)
                 node = stack.pop()
                 print(f"{node}\n")
-                marked_nodes.append(node)
-                neighbors = self.neighbors(node, marked_nodes)
+                marked_nodes.add(node)
+                neighbors = self.neighbors(node)
                 print(neighbors)
-                j=0
-                connected = False
-                while connected !=True and len(neighbors)>0:
-                    n = neighbors[j]
+
+                for n in neighbors:
                     if n not in(marked_nodes):
                         e = Edge(i, node, n)
-                        print (f"{i} = {node}, {n} \n")
+                        print (f"Edge{i} = {node}, {n} \n")
                         DFS_iTree.edges.append(e)
-                        marked_nodes.append(n)
+                        marked_nodes.add(n)
                         stack.append(n)
-                        connected = True
                         i = i + 1
-                    j=j+1
                 neighbors.clear()
                 
             return DFS_iTree
