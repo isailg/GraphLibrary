@@ -1,5 +1,6 @@
 """ Programa principal
-Ejecuta cada uno de los modelos de generación de grafos para 30,100 y 500 nodos, y exporta su archivo .gv correspondiente.
+Ejecuta cada uno de los modelos de generación de grafos para 30 y 100 nodos, y exporta su archivo .gv correspondiente.
+Tambien ejecuta los algoritmos Kruskal Directo, Kruskal Inverso y Prim para cada grafo.
 Por: Isaí López García
 """
 
@@ -11,7 +12,7 @@ import math
 
 if __name__ == "__main__":
     
-    nlist = [30, 300]
+    nlist = [30, 100]
     namelist = ["pocos", "muchos"]
     k=0
     
@@ -36,10 +37,11 @@ if __name__ == "__main__":
         MST3 = gER.Prim(f"ErdosRenyi_{c}({n})_Prim")
         MST3.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi_Prim_{c}({n})")
         
+        print("------------------------------")
         
         """ Gilbert """
         #Generacion de grafo
-        gGi = grafoGilbert(n,0.3,False)
+        gGi = grafoGilbert(n,0.6,False)
         gGi.saveGraphViz(f"GeneratedGraphs(.gv)/Gilbert_{c}({n})")
         
         #Aplicando Kruskal Directo
@@ -54,7 +56,8 @@ if __name__ == "__main__":
         MST6 = gGi.Prim(f"Gilbert_{c}({n})_Prim")
         MST6.saveGraphViz(f"CalculatedGraphs(.gv)/Gilbert_Prim_{c}({n})")
         
-        
+        print("------------------------------")
+
         """ Malla """
         #Generacion de grafo
         gM = grafoMalla(int(math.sqrt(n)),int(math.sqrt(n))+1,False)
@@ -72,6 +75,7 @@ if __name__ == "__main__":
         MST9 = gM.Prim(f"Malla_{c}({n})_Prim")
         MST9.saveGraphViz(f"CalculatedGraphs(.gv)/Malla_Prim_{c}({n})")
         
+        print("------------------------------")
         
         """ Geografico Simple """
         #Generacion de grafo
@@ -90,6 +94,7 @@ if __name__ == "__main__":
         MST12 = gGe.Prim(f"GeograficoSimple_{c}({n})_Prim")
         MST12.saveGraphViz(f"CalculatedGraphs(.gv)/GeograficoSimple_Prim_{c}({n})")
         
+        print("------------------------------")
         
         """ Barabasi Albert """
         #Generacion de grafo
@@ -108,7 +113,8 @@ if __name__ == "__main__":
         MST15 = gBA.Prim(f"BarabasiAlbert_{c}({n})_Prim")
         MST15.saveGraphViz(f"CalculatedGraphs(.gv)/BarabasiAlbert_Prim_{c}({n})")
         
-        
+        print("------------------------------")
+
         """ Dorogovtsev Mendes """
         #Generacion de grafo
         gDM = grafoDorogovtsevMendes(n,False)
@@ -126,4 +132,6 @@ if __name__ == "__main__":
         MST = gDM.Prim(f"DorogovtsevMendes_{c}({n})_Prim")
         MST.saveGraphViz(f"CalculatedGraphs(.gv)/DorogovtsevMendes_Prim_{c}({n})")
         
+        print("------------------------------")
+
         k = k + 1
