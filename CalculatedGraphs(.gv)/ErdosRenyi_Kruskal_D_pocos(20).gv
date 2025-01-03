@@ -1,0 +1,18 @@
+graph CalculatedGraphs(.gv)/ErdosRenyi_Kruskal_D_pocos(20) {
+5 -- 13 [label = 5.27];
+3 -- 12 [label = 9.36];
+2 -- 15 [label = 16.91];
+16 -- 14 [label = 19.0];
+10 -- 2 [label = 23.03];
+16 -- 9 [label = 33.3];
+7 -- 19 [label = 42.05];
+4 -- 15 [label = 47.99];
+8 -- 17 [label = 55.21];
+4 -- 3 [label = 57.92];
+9 -- 3 [label = 60.0];
+18 -- 7 [label = 76.44];
+1 -- 2 [label = 81.66];
+18 -- 11 [label = 85.5];
+17 -- 13 [label = 87.78];
+17 -- 10 [label = 93.45];
+}

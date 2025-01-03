@@ -1,0 +1,31 @@
+graph CalculatedGraphs(.gv)/DorogovtsevMendes_Kruskal_D_pocos(30) {
+26 -- 2 [label = 1.59];
+8 -- 2 [label = 3.23];
+11 -- 4 [label = 3.28];
+27 -- 13 [label = 3.43];
+19 -- 3 [label = 3.49];
+4 -- 1 [label = 4.61];
+5 -- 3 [label = 6.69];
+5 -- 2 [label = 11.04];
+9 -- 2 [label = 11.51];
+22 -- 0 [label = 12.08];
+21 -- 2 [label = 12.29];
+20 -- 2 [label = 13.41];
+20 -- 1 [label = 15.59];
+15 -- 3 [label = 20.1];
+28 -- 5 [label = 24.42];
+28 -- 12 [label = 25.65];
+29 -- 4 [label = 27.44];
+13 -- 0 [label = 32.62];
+7 -- 1 [label = 35.16];
+17 -- 1 [label = 36.07];
+22 -- 1 [label = 37.28];
+25 -- 5 [label = 45.49];
+24 -- 1 [label = 46.61];
+6 -- 4 [label = 52.54];
+23 -- 3 [label = 55.31];
+16 -- 3 [label = 63.13];
+10 -- 2 [label = 77.1];
+14 -- 4 [label = 83.3];
+18 -- 4 [label = 87.46];
+}
