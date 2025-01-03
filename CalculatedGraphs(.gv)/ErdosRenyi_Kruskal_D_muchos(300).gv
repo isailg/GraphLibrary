@@ -1,3 +1,0 @@
-graph CalculatedGraphs(.gv)/ErdosRenyi_Kruskal_D_muchos(300) {
-24 -- 256 [label = 99.74];
-}

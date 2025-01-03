@@ -2,6 +2,7 @@ import math
 import queue
 from node import Node
 from edge import Edge
+import heapq
 
 class Graph:
 
@@ -67,10 +68,17 @@ class Graph:
                 named = name +".gv"
                 
                 with open(named, 'w') as f:
-                        f.write("graph " + name +  " {\n")
+                        f.write("graph " + name +  " {\n\n")
+                        
+                        
+                        
+                        for node in self.nodes:
+                            f.write(f'  {node.id} [label= "Nodo_{node.id}({node.x})" fontname="Arial" labelcolor="rgb(255,0,0)" fontsize=14];\n')
 
+
+                        f.write("\n")
                         for edge in self.edges:
-                                f.write(f"{edge.start} -- {edge.end} [label = {str(edge.weight)}];\n")
+                                f.write(f'  {edge.start} -- {edge.end} [label = {str(edge.weight)}];\n ')
 
                         f.write("}\n")
         
@@ -92,10 +100,11 @@ class Graph:
             
             for edge in self.edges:
                 if (edge.start == node):
-                    neighbors.append(edge.end)
+                    neighbors.append((edge.end,edge))
+
 
                 if (edge.end == node):
-                    neighbors.append(edge.start)
+                    neighbors.append((edge.start,edge))
 
             return neighbors
             
@@ -218,69 +227,59 @@ class Graph:
                 
             return DFS_iTree
         
-        def dfs(self,s):
+        def dijkstra(self,s):
+            
+            # Iniciando estructuras
+            dijkstra_graph = Graph()
+            q = []
+            visited = set()
+            
+            
+            d = [float('inf')]*(len(self.nodes))
+            d[s] = 0
+            nw = (s,0)
+            heapq.heappush(q,(d[s],0))
+
+            
+            while len(q)>0:
+                
+                # Extrayendo el nodo con menos peso de la cola
+                edge_weight, node = heapq.heappop(q)
+                
+                if node in visited:
+                    continue
+                    
+                #print(f"visita nodo {node}, {edge_weight} --------------------")
+                
+                # Se visita y extraen vecinos
+                visited.add(node)
+                neighbors = self.neighbors(node)
+                
+                # Verificando cada vecino y actualizando pesos
+                for neighbor in neighbors:
+                    
+                    node_n, edge = neighbor
+                    if node_n not in visited:
+                        #print(f"vecino no vistado antes {node_n}")
                         
-            """ Método para aplicar DFS a un grafo para verificar si hay ciclos en él 
-                    
-                    Entrada:
-                        s = Nodo raíz
-                    
-                    Salida:
-                        cycle = True or False
-            """
-            stack = []
-            stack.append(s)
-            
-            marked_nodes = []
-            cycle = False
-            neighbors = []
-            i=0
-            while len(stack)>0 and cycle==False:
-                node = stack.pop()
-                print(node)
-
-                print(marked_nodes)
-                if node in(marked_nodes):
-                    cycle = True
-                else:
-                    neighbors = self.neighbors(node)
-                    print (neighbors)
-                    for n in neighbors:
-                        if n not in(marked_nodes):
-                            stack.append(n)
-
+                        new_d = d[node] + edge.weight
+                        #print(f"dist antes = {d[node_n]} dist ahora {new_d}")
+                        
+                        if new_d < d[node_n]:
+                            d[node_n] = round(new_d,2)
+                            #print("actualizada")
+                            
+                        nw = (node_n, d[node_n])
+                        heapq.heappush(q,(d[node_n],node_n))
+                        #print(f"Se agregó al heap {node_n}")
+                        
                 neighbors.clear()
-                marked_nodes.append(node)
-                print(cycle)
-                print("end iteration")
-            return cycle
-        
-        def Kruskal_D(self):
-            """ Método para aplicar algoritmo directo de Kruskal a grafo
-            
-                Entrada:
-                Salida:
-                    total : (Impreso en consola) Peso total del árbol
-                    MST: Minimun Spanning Tree inducido por el Kruskal Directo 
-            """
-            
-            M = Graph()
-            
-            #Ordenar aristas de forma ascendente de acuerdo a su peso
-            self.edges.sort(key=lambda value: value.weight)
-            
-            i=0
-            #Verificar arista por arista en orden ascendente con respecto a su peso
-            for edge in self.edges:
+                #print(d)
                 
-                #Verificar si el arista que se dese agregar generaría un ciclo                
-                M.edges.append(edge)
-                cycle = M.dfs(edge.start) 
-                M.edges.pop()
-
-                # Se agrega en caso que no genere un ciclo 
-                if cycle == False:
-                    M.addEdge(i,edge.start,edge.end,edge.weight)
-                    i=i+1
-                
-            return M
+            dijkstra_graph.edges = self.edges
+            
+            for i in range(len(d)):
+                dijkstra_graph.addNode(i,d[i])
+    
+            
+            return dijkstra_graph

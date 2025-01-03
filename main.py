@@ -1,5 +1,5 @@
 """ Programa principal
-Ejecuta cada uno de los modelos de generación de grafos para 30,100 y 500 nodos, y exporta su archivo .gv correspondiente.
+Ejecuta cada uno de los modelos de generación de grafos para 30 y 100 nodos, aplica el algoritmo Dijkstra y exporta su archivo .gv correspondiente.
 Por: Isaí López García
 """
 
@@ -8,13 +8,11 @@ from node import Node
 from edge import Edge
 from algorithms import *
 import sys
+import math
 
 if __name__ == "__main__":
     
-    #Aumentando el limite de recursiones para DFS Recursivo
-    sys.setrecursionlimit(16000)
-    
-    nlist = [30]
+    nlist = [30,100]
     namelist = ["pocos", "muchos"]
     k=0
     
@@ -27,116 +25,58 @@ if __name__ == "__main__":
         gER = grafoErdosRenyi(n,n, False)
         gER.saveGraphViz(f"GeneratedGraphs(.gv)/ErdosRenyi_{c}({n})")
         
-        #Aplicando Kruskal Directo
-        MST = gER.Kruskal_D()
-        MST.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi_Kruskal_D_{c}({n})")
-        """
-        #Aplicando Kruskal Inverso
-        MST = gER.Kruskal_I()
-        MST.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi_Kruskal_I_{c}({n})")
+        #Aplicando Dijkstra
+        S = gER.dijkstra(0)
+        S.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi_{c}({n})_Dijkstra")
+
         
-        #Aplicando Prim algorithm
-        MST = gER.Prim()
-        MST.saveGraphViz(f"CalculatedGraphs(.gv)/ErdosRenyi_Prim_{c}({n})")
-        """
-        
-        """ Gilbert 
+        """ Gilbert """
         #Generacion de grafo
         gGi = grafoGilbert(n,0.3,False)
-        gGi.saveGraphViz(f"GeneratedGraphs(.gv)/Gilbert{n}")
+        gGi.saveGraphViz(f"GeneratedGraphs(.gv)/Gilbert_{c}({n})")
         
-        #Aplicando BFS
-        BFS_ER = gGi.BFS(12)
-        BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Gilbert{n}_BFS")
-        
-        #Aplicando DFS Recursivo
-        RTree_ER = gGi.DFS_R(12, visited_nodes, rDFS_tree)
-        RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Gilbert{n}_DFS_R")
-        rDFS_tree.clear()
-        visited_nodes.clear()
-        
-        #Aplicando DFS Recursivo
-        ITree_ER = gGi.DFS_I(12)
-        ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Gilbert{n}_DFS_I")
+        #Aplicando Dijkstra
+        S1 = gGi.dijkstra(0)
+        S1.saveGraphViz(f"CalculatedGraphs(.gv)/Gilbert_{c}({n})_Dijkstra")
         
         
-        Malla 
+        """ Malla """
         #Generacion de grafo
-        gM = grafoMalla(n,30,False)
-        gM.saveGraphViz(f"GeneratedGraphs(.gv)/Malla{n}")
+        gM = grafoMalla(int(math.sqrt(n)),int(math.sqrt(n)),False)
+        gM.saveGraphViz(f"GeneratedGraphs(.gv)/Malla_{c}({n})")
         
-        #Aplicando BFS
-        BFS_ER = gM.BFS(12)
-        BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Malla{n}_BFS")
-        
-        #Aplicando DFS Recursivo
-        RTree_ER = gM.DFS_R(12, visited_nodes, rDFS_tree)
-        RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Malla{n}_DFS_R")
-        rDFS_tree.clear()
-        visited_nodes.clear()
-        
-        #Aplicando DFS Recursivo
-        ITree_ER = gM.DFS_I(12)
-        ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/Malla{n}_DFS_I")
+        #Aplicando Dijkstra
+        S2 = gM.dijkstra(0)
+        S2.saveGraphViz(f"CalculatedGraphs(.gv)/Malla_{c}({n})_Dijkstra")
         
         
-         Geografico Simple 
+        """ Geografico Simple """
         #Generacion de grafo
         gGe = grafoGeografico(n,0.6,False)
-        gGe.saveGraphViz(f"GeneratedGraphs(.gv)/GeograficoSimple{n}")
+        gGe.saveGraphViz(f"GeneratedGraphs(.gv)/GeograficoSimple_{c}({n})")
         
-        #Aplicando BFS
-        BFS_ER = gGe.BFS(12)
-        BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/GeograficoSimple{n}_BFS")
-        
-        #Aplicando DFS Recursivo
-        RTree_ER = gGe.DFS_R(12, visited_nodes, rDFS_tree)
-        RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/GeograficoSimple{n}_DFS_R")
-        rDFS_tree.clear()
-        visited_nodes.clear()
-        
-        #Aplicando DFS Recursivo
-        ITree_ER = gGe.DFS_I(12)
-        ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/GeograficoSimple{n}_DFS_I")
+        #Aplicando Dijkstra
+        S3 = gGe.dijkstra(0)
+        S3.saveGraphViz(f"CalculatedGraphs(.gv)/GeograficoSimple_{c}({n})_Dijkstra")
         
         
-         Barabasi Albert 
+        """ Barabasi Albert """
         #Generacion de grafo
         gBA = grafoBarabasiAlbert(n,6,False)
-        gBA.saveGraphViz(f"GeneratedGraphs(.gv)/BarabasiAlbert{n}")
+        gBA.saveGraphViz(f"GeneratedGraphs(.gv)/BarabasiAlbert_{c}({n})")
         
-        #Aplicando BFS
-        BFS_ER = gBA.BFS(12)
-        BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/BarabasiAlbert{n}_BFS")
-        
-        #Aplicando DFS Recursivo
-        RTree_ER = gBA.DFS_R(12, visited_nodes, rDFS_tree)
-        RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/BarabasiAlbert{n}_DFS_R")
-        rDFS_tree.clear()
-        visited_nodes.clear()
-        
-        #Aplicando DFS Recursivo
-        ITree_ER = gBA.DFS_I(12)
-        ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/BarabasiAlbert{n}_DFS_I")
+        #Aplicando Dijkstra
+        S4 = gBA.dijkstra(0)
+        S4.saveGraphViz(f"CalculatedGraphs(.gv)/BarabasiAlbert_{c}({n})_Dijkstra")
         
         
-        Dorogovtsev Mendes 
+        """ "Dorogovtsev Mendes """
         #Generacion de grafo
         gDM = grafoDorogovtsevMendes(n,False)
-        gDM.saveGraphViz(f"GeneratedGraphs(.gv)/DorogovtsevMendes{n}")
+        gDM.saveGraphViz(f"GeneratedGraphs(.gv)/DorogovtsevMendes_{c}({n})")
         
-        #Aplicando BFS
-        BFS_ER = gDM.BFS(12)
-        BFS_ER.saveGraphViz(f"CalculatedGraphs(.gv)/DorogovtsevMendes{n}_BFS")
+        #Aplicando Dijkstra
+        S5 = gDM.dijkstra(0)
+        S5.saveGraphViz(f"CalculatedGraphs(.gv)/DorogovtsevMendes_{c}({n})_Dijkstra")
         
-        #Aplicando DFS Recursivo
-        RTree_ER = gDM.DFS_R(12, visited_nodes, rDFS_tree)
-        RTree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/DorogovtsevMendes{n}_DFS_R")
-        rDFS_tree.clear()
-        visited_nodes.clear()
-        
-        #Aplicando DFS Recursivo
-        ITree_ER = gDM.DFS_I(12)
-        ITree_ER.saveGraphViz(f"CalculatedGraphs(.gv)/DorogovtsevMendes{n}_DFS_I")
-        """
         k = k + 1
