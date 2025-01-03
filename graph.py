@@ -228,7 +228,15 @@ class Graph:
             return DFS_iTree
         
         def dijkstra(self,s):
-            
+            """ Método para aplicar Dijkstra al grafo seleccionado
+                Marca cada nodo con el peso total del camino más corto desde el nodo origen 
+                    
+                    Entrada:
+                        s = Nodo origen arbitrario (Generalmente es 0 pero puede ser cual sea)
+                    
+                    Salida:
+                        dijkstra_graph = Grafo resultante 
+            """
             # Iniciando estructuras
             dijkstra_graph = Graph()
             q = []
