@@ -1,7 +1,12 @@
 # GraphLibrary
+
+### Isaí López García  
+---
+
+## Descripción
 Una librería de Python3.6 diseñada para generar grafos aleatorios mediante los algoritmos Erdos-Renyi, Gilbert, Geográfico Simple, Barabasi Albert, Dorogovtsev Mendes y Malla.
 
-Esta librería incluye implementación de clases para **nodos** y **aristas**, así como métodos para exportar los grafos generados al formato **GraphViz**, útil para visualizar en **Gephi**.
+Esta librería incluye implementación de clases para `Grafos`, `nodos` y `aristas`, así como métodos para exportar los grafos generados al formato .gv, útil para visualizar en `Gephi`.
 
 **Main.py** Ejecuta todos los modelos de generación aleatoria de grafos para 30, 100 y 500 nodos.
 
@@ -20,4 +25,4 @@ Esta librería incluye implementación de clases para **nodos** y **aristas**, a
 
 **Carpeta GraphViz/** Muestra los archivos .gv que se exporta de cada método en cada configuración (30,100,500).
 
-**Carpeta Graph Images/** Contiene las imágenes obtenidas en **Gephi** de los grafos generados por main.py.
+**Carpeta Graph Images/** Contiene las imágenes obtenidas en `Gephi` de los grafos generados por main.py.
