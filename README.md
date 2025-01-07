@@ -15,7 +15,7 @@ Este repositorio contiene el código del Proyecto 4 para aplicar el algoritmo de
 
   - Aquí el resultado:
     
-    ![Pesos totales de cada MST generado](Total weights results.png)
+    ![Pesos totales de cada MST generado](Totalweightsresults.png)
 
 2. **Archivos Generados:**
    
