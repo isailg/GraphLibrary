@@ -10,7 +10,8 @@ Este repositorio contiene el código del Proyecto 2 para aplicar algoritmos `BFS
 ### Contenido del Repositorio
 
 1. **Código:** Incluye los algoritmos y clases del proyecto anterior junto con nuevos métodos de la clase Grafo llamados `BFS`, `DFS_I` y `DFS_R`.
-   **Main.py** Ejecuta todos los modelos de generación aleatoria de grafos para 30, 100 y 500 nodos y luego aplica BFS, DFS_I y DFS_R.
+
+  - **Main.py** Ejecuta todos los modelos de generación aleatoria de grafos para 30, 100 y 500 nodos y luego aplica BFS, DFS_I y DFS_R.
 
 3. **Archivos Generados:**
    
