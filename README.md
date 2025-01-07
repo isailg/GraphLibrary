@@ -1,22 +1,24 @@
-# GraphLibrary
-A simple Python3 library to generate graphs
+# GraphLibrary - Algoritmo de Dijkstra
 
-**Main.py** Ejecuta todos los modelos de generación aleatoria de grafos para 30, 100 y 500 nodos.
+### Isaí López García  
+---
 
+## Descripción
 
-**Algorithms.py** Contiene todos los modelos usados para la generación aleatoria de grafos.
+Este repositorio contiene el código del Proyecto 3 para aplicar el algoeritmo de Dijkstra a los grafos generados aleatoriamente con los algoritmos de proyectos anteriores.
 
+### Contenido del Repositorio
 
-**Graph.py** Es la clase grafo, guarda los objetos nodos y objetos aristas en listas. Cuenta con una lista auxiliar llamada "str_edges" que guarda los mismos aristas de la lista "edges" pero en formato string (se usa porque facilita la búsqueda de aristas existentes en algunos algoritmos). Contiene métodos para agregar nodos, aristas, obtener el grado de un nodo y para exportar el grafo a un archivo GraphViz.
+1. **Código:** Incluye los algoritmos y clases del proyecto anterior junto con el nuevo método de la clase Grafo llamados `Dijkstra`, que únicamente tiene de entrada el nodo origen del cual serán calculados los caminos de mínimo peso para cada uno de los nodos.
 
+  - **Main.py** Ejecuta todos los modelos de generación aleatoria de grafos para pocos nodos (30) y muchos nodos (100), y luego aplica Dijkstra que exporta un archivo (.gv) usado para visualizar el grafo y el peso del camino mínimo de cada uno de los nodos al nodo origen.
 
+2. **Archivos Generados:**
+   
+  - **GeneratedGraphs(gv)/**: Carpeta que contiene los archivos `.gv` generados por los algoritmos de generación aleatoria para 30 y 100 nodos.
+  - **CalculatedGraphs(gv)/**: Carpeta que contiene los archivos `.gv` generados por el algoritmo de Dijkstra aplicado a cada grafo de la carpeta mencionada anteriormente.
 
-**Edge.py** Es la clase de arista. Contiene los atributos "start" y "end" que se refieren a los dos nodos que la componen.
-
-
-**Node.py** Es la clase nodo. Tiene como atributo el id y coordenadas "x" y "y" que son ocupadas en el método geográfico simple.
-
-
-**Carpeta GraphViz/** Muestra los archivos .gv que se exporta de cada método en cada configuración (30,100,500).
-
-**Carpeta Graph Images/** Contiene las imágenes obtenidas en gephi de los grafos generados por main.py.
+3. **Capturas de Pantalla:**
+   
+- **GeneratedGraphs(img)/**: Carpeta que contiene las imágenes generadas con Gephi a partir de los grafos de la carpeta GeneratedGraphs(gv)/.
+- **CalculatedGraphs(img)/**: Carpeta que contiene las imágenes generadas con Gephi a partir de los grafos inducidos por Dijkstra. Se puede visualizar el peso total del camino de mínimo peso de cada uno de los nodos hacia el nodo origen, además de los pesos de cada arista.
