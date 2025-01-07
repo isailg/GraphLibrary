@@ -14,6 +14,7 @@ Este repositorio contiene el código del Proyecto 4 para aplicar el algoritmo de
   - **Main.py** Ejecuta todos los modelos de generación aleatoria de grafos para pocos nodos (30) y muchos nodos (100), y luego aplica cada uno de los 3 nuevos métodos de clase que exportan un archivo (.gv) cada uno, usados para visualizar el MST y para imprimir en consola el peso total de cada árbol de mínima expansión.
 
   - Aquí el resultado:
+    
     ![Pesos totales de cada MST generado](Total weights results.png)
 
 2. **Archivos Generados:**
