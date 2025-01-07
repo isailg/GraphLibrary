@@ -17,7 +17,7 @@ Este repositorio contiene el código del Proyecto 4 para aplicar el algoritmo de
     
     ![Pesos totales de cada MST generado](Totalweightsresults.png)
 
-    **Nota:** Como se observa, el algoritmo Erdos Renyi hay una discrepancia en los pesos totales entre los MST generados por cada método, pero esto se debe a la forma en que se genera el grafo. Cuando se genera un grafo con Erdos Renyi se crean subgrafos no conexos entre sí, entonces cuando se aplica Kruskal o Prim y se toma algun arista arbitrario solo se geenra el árbol de mínima expansión de ese subgrafo.
+    **Nota:** Como se observa, en el algoritmo Erdos Renyi hay una discrepancia en los pesos totales de los MST generados por cada método, pero esto se debe a la forma en que se genera el grafo con el método Erdos Renyi. Cuando se genera un grafo con dicho método se crean subgrafos no conexos entre sí, entonces cuando se aplica Kruskal o Prim y se toma algun arista arbitrario solo se genera el árbol de mínima expansión para ese subgrafo.
 
 
 2. **Archivos Generados:**
