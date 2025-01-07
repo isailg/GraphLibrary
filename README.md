@@ -13,7 +13,7 @@ Este repositorio contiene el código del Proyecto 2 para aplicar algoritmos `BFS
 
   - **Main.py** Ejecuta todos los modelos de generación aleatoria de grafos para 30, 100 y 500 nodos y luego aplica BFS, DFS_I y DFS_R.
 
-3. **Archivos Generados:**
+2. **Archivos Generados:**
    
   - **GeneratedGraphs(gv)/**: Carpeta que contiene los archivos `.gv` generados por los algoritmos de generación aleatoria para 30, 100 y 500 nodos.
   - **CalculatedGraphs(gv)/**: Carpeta que contiene los archivos `.gv` generados por los algoritmos BFS, DFS Iterativo y DFS Recursivo aplicados a cada grafo de la carpeta mencionada anteriormente.
