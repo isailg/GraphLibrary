@@ -131,7 +131,7 @@ class App:
         #Declaración de constantes
         W, L = 1280, 720
         vertex_size = 10
-        k = 10
+        k = 200
         t= W/10#0.95
         a= 20
         
@@ -195,19 +195,6 @@ class App:
                     nodes[v][1] = nodes[v][1] + (f[v][1]/norf)
                     #nodes[v][0] = min(W/2,max(-W/2,nodes[v][0]))
                     #nodes[v][1] = min(L/2,max(-L/2,nodes[v][1]))
-                
-                """
-                nodes[v][0] += f[v][0] * min(f[v][0],t)
-                nodes[v][1] += f[v][1] * min(f[v][1],t)
-                nodes[v][0] = max(vertex_size, min(W/2,max( -1*W/2, nodes[v][0])))
-                nodes[v][1] = max(vertex_size, min(L/2,max( -1*L/2, nodes[v][1])))
-                """
-                """
-                difx = difx + (f[v][0]/self.norma(f[v][0],f[v][1]))
-                dify = dify + (f[v][1]/self.norma(f[v][0],f[v][1]))
-                nodes[v][0] += difx
-                nodes[v][1] += dify
-                """
                 nodes[v][0] = max(vertex_size, min(W - vertex_size, nodes[v][0]))
                 nodes[v][1] = max(vertex_size, min(L - vertex_size, nodes[v][1]))
                 
