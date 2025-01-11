@@ -1,5 +1,5 @@
 # GraphLibrary - Disposicion de Grafos II
-# Fruchterman-Reingold y Barnes-Hut
+## Fruchterman-Reingold y Barnes-Hut
 
 ### Isaí López García  
 ---
