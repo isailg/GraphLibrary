@@ -1,81 +1,28 @@
-# GraphLibrary - Disposicion de Grafos I
+# GraphLibrary - Disposicion de Grafos II
+# Fruchterman-Reingold y Barnes-Hut
 
 ### Isaí López García  
 ---
 
 ## Descripción
 
-Este repositorio contiene el código del Proyecto 5 para la disposición de grafos mediante el método de resortes (Spring Layout) presentado por P. Eades (1984).
+Este repositorio contiene el código del Proyecto 6 para la disposición de grafos mediante el método de equilibrio de fuerzas de Fruchterman-Reingold (1991) y mediante Force-Directed utilizando la optimización de Barnes-Hut (1986).
+
 
 ### Contenido del Repositorio
 
-1. **Código:** Incluye los algoritmos de proyectos anteriores junto con una nueva clase llamada `App`, contenida en el archivo `graph-visualizer.py`. Esta clase implementa un método llamado `Spring method` para calcular la disposición de grafos.
+1. El código con los algoritmos de los proyectos anteriores más una clase llamada `App` dentro del archivo **graph_visualizer.py**, que contiene un método de clase llamado **Fruchterman_Reingold_method** y otro llamado **Barnes_Hut_method** con los cuales se pueden visualizar grafos calculando su disposición con los métodos mencionados. También se agrega una clase llamada **Quadtree** para la optimización de Barnes-Hut.
 
-2. **Archivos Generados:** En la carpeta `GeneratedGraphs(gv)` encontrarás archivos `.gv` creados por algoritmos de generación aleatoria. Hay dos archivos por generador:
-   - Uno con 100 nodos.
-   - Otro con 500 nodos.
+2. Una carpeta llamada **"GeneratedGraphs(gv)"** con los archivos `.gv` generados por los algoritmos de generación aleatoria. Uno con 100 nodos y otro con 500 nodos.
 
-2. **Capturas de Pantalla:** En la carpeta `Screenshots` encontrarás las capturas de las visualziaciones de los grafos creados por cada algoritmo de generación aleatoria. Hay dos imágenes por generador:
-   - Uno con 100 nodos.
-   - Otro con 500 nodos.
+3. Una carpeta llamada **Fruchterman Reingold Screenshots** y otra llamada **Barnes Hut Screenshots** donde están las capturas de las visualizaciones. Hay dos archivos por generador aleatorio (100 y 500 nodos).
 
----
+## Playlist de videos: (subidos a Youtube)
 
-## Capturas de Pantalla y Videos
+### Visualizaciones de todos los grafos usando el método **Fruchterman-Reingold**:
 
-### Playlist con todas las visualizaciones  
-[https://www.youtube.com/playlist?list=PLPK-TVgfOITGFjbUpV9pFPFgJyxxQQimP](https://www.youtube.com/playlist?list=PLPK-TVgfOITGFjbUpV9pFPFgJyxxQQimP)
+[https://www.youtube.com/playlist?list=PLPK-TVgfOITEsAr92a8QTJCz1OAAfC8Jy](https://www.youtube.com/playlist?list=PLPK-TVgfOITEsAr92a8QTJCz1OAAfC8Jy)
 
-### Visualizaciones para Grafos con 100 Nodos
+### Visualizaciones de todos los grafos usando el método **Barnes-Hut**:
 
-1. **Erdos Renyi (100 nodos):**  
-   [Video](https://youtu.be/5EduNS-xFJU)  
-   ![ER100](screenshots/ER100.png)
-
-2. **Gilbert (100 nodos):**  
-   [Video](https://youtu.be/MLsXHUOz6e4)  
-   ![G100](screenshots/G100.png)
-
-3. **Malla (100 nodos):**  
-   [Video](https://youtu.be/bi2WEQ5GANs)  
-   ![M100](screenshots/M100.png)
-
-4. **Geográfico Simple (100 nodos):**  
-   [Video](https://youtu.be/oog0NbcE_EE)  
-   ![GS100](screenshots/GS100.png)
-
-5. **Barabasi Albert (100 nodos):**  
-   [Video](https://youtu.be/Huorce3k1P8)  
-   ![BA100](screenshots/BA100.png)
-
-6. **Dorogovtsev Mendes (100 nodos):**  
-   [Video](https://youtu.be/fgtcIJD-aJM)  
-   ![DM100](screenshots/DM100.png)
-
----
-
-### Visualizaciones para Grafos con 500 Nodos
-
-1. **Erdos Renyi (500 nodos):**  
-   [Video](https://youtu.be/s-WsNAkcmLI)  
-   ![ER500](screenshots/ER500.png)
-
-2. **Gilbert (500 nodos):**  
-   [Video](https://youtu.be/Y59tqj7AXpM)  
-   ![G500](screenshots/G500.png)
-
-3. **Malla (500 nodos):**  
-   [Video](https://youtu.be/T4qPPwqKUE0)  
-   ![M500](screenshots/M500.png)
-
-4. **Geográfico Simple (500 nodos):**  
-   [Video](https://youtu.be/waE75lSMPp8)  
-   ![GS500](screenshots/GS500.png)
-
-5. **Barabasi Albert (500 nodos):**  
-   [Video](https://youtu.be/YkWcyrPh_uY)  
-   ![BA500](screenshots/BA500.png)
-
-6. **Dorogovtsev Mendes (500 nodos):**  
-   [Video](https://youtu.be/W7dXZVRVlHM)  
-   ![DM500](screenshots/DM500.png)
+[https://www.youtube.com/playlist?list=PLPK-TVgfOITH-yAbmNhGPYm1bwdyeUMUf](https://www.youtube.com/playlist?list=PLPK-TVgfOITH-yAbmNhGPYm1bwdyeUMUf)
