@@ -11,13 +11,36 @@ class Quadtree:
     def __init__(self, boundary, capacity=4):
         self.boundary = boundary  # (x_min, x_max, y_min, y_max)
         self.capacity = capacity
-        self.nodes = []
+        self.quadnodes = []
         self.divided = False
         self.nw = None
         self.ne = None
         self.sw = None
         self.se = None
 
+    def insert(self, quadnode):
+        x, y = quadnode
+        x_min, x_max, y_min, y_max = self.boundary
+        
+        # El quadtree no puede contener este quadnode
+        if not (x_min <= x <= x_max and y_min <= y <= y_max):
+            return False
+        
+        if (len(self.quadnodes) < self.capacity):
+            self.quadnodes.append(quadnode)
+            return True
+        
+        if (self.divided == False):
+                self.subdivide()
+                self.divided = True
+                
+        if self.nw.insert(quadnode): return True
+        if self.ne.insert(quadnode): return True
+        if self.sw.insert(quadnode): return True
+        if self.se.insert(quadnode): return True
+        return False
+
+    
     def subdivide(self):
         x_min, x_max, y_min, y_max = self.boundary
         mid_x = (x_min + x_max) / 2
@@ -35,49 +58,21 @@ class Quadtree:
 
         self.divided = True
 
-    def insert(self, node):
-        x, y = node
-        x_min, x_max, y_min, y_max = self.boundary
-        if not (x_min <= x <= x_max and y_min <= y <= y_max):
-            return False
+    def search(self, limit, threshold, found_nodes = []):
         
-        if len(self.nodes) < self.capacity:
-            self.nodes.append(node)
-            return True
-        else:
-            if not self.divided:
-                self.subdivide()
-
-            if self.nw.insert(node): return True
-            if self.ne.insert(node): return True
-            if self.sw.insert(node): return True
-            if self.se.insert(node): return True
-
-        return False
-
-    def query(self, range, threshold):
-        found_nodes = []
         x_min, x_max, y_min, y_max = self.boundary
-        rx_min, rx_max, ry_min, ry_max = range
+        rx_min, rx_max, ry_min, ry_max = limit
         if x_max < rx_min or x_min > rx_max or y_max < ry_min or y_min > ry_max:
             return found_nodes
         
         # Si el quadtree ha sido subdividido, se busca recursivamente
         if self.divided:
-            found_nodes.extend(self.nw.query(range, threshold))
-            found_nodes.extend(self.ne.query(range, threshold))
-            found_nodes.extend(self.sw.query(range, threshold))
-            found_nodes.extend(self.se.query(range, threshold))
-        else:
-            for node in self.nodes:
-                if self.distance(range, node) < threshold:
-                    found_nodes.append(node)
+            found_nodes.extend(self.nw.search(limit, found_nodes))
+            found_nodes.extend(self.ne.search(limit, found_nodes))
+            found_nodes.extend(self.sw.search(limit, found_nodes))
+            found_nodes.extend(self.se.search(limit, found_nodes))
 
         return found_nodes
-
-    def distance(self, range, node):
-        rx_min, rx_max, ry_min, ry_max = range
-        return math.sqrt((node[0] - rx_min) ** 2 + (node[1] - ry_min) ** 2)
 
     def draw(self, surface, color=(0, 0, 0)):
         

@@ -6,6 +6,9 @@ import math
 import numpy
 import cv2
 
+
+from quadtree import Quadtree
+
 class App:
     def __init__(self):
         self._running = True
@@ -38,7 +41,7 @@ class App:
     def norma(self,dx,dy):
         return math.sqrt((dx**2)+(dy**2))
         
-    def strength(self,p0,p1):
+    def strength(self,graph,p0,p1):
         return 1/min(graph.getDegree(p0),graph.getDegree(p1))
     
     def spring_method(self, graph, name):
@@ -234,22 +237,10 @@ class App:
         W, L = 1280, 720
         vertex_size = 10
         D = 20
-        Iterations_number=
-        alpha =
-        alphaMin=
+        Iterations_number= 100
+        alpha = 1
+        alphaMin= 0.1
         alphaDecay = 1 - alphaMin**(1/Iterations_number)
-        
-        
-        #Create Quadtree
-        
-        
-        #OpenCV para grabar video
-        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        fps = 60
-        out = cv2.VideoWriter(name+".mp4", fourcc, fps, (W, L))
-        clock = pygame.time.Clock()
-        
-        
         
         
         #Place vertices at random
@@ -260,11 +251,25 @@ class App:
         for edge in graph.edges:
             e = (edge.start, edge.end)
             edges.append(e)
-            
+        
+        
+        #Create Quadtree
+        boundary = (0, W, 0, L)
+        quadtree = Quadtree(boundary)
+        
+        for i in nodes:
+            quadtree.insert(nodes[i])
+        
+        
+        #OpenCV para grabar video
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+        fps = 60
+        out = cv2.VideoWriter(name+".mp4", fourcc, fps, (W, L))
+        clock = pygame.time.Clock()
             
             
         # Main Loop
-        while (self._running) and alpha < alphaMin:
+        while (self._running):# and alpha > alphaMin:
         
             for event in pygame.event.get():
                 self.on_event(event)
@@ -278,74 +283,49 @@ class App:
                 neighbors = graph.neighbors(v)
                 for u in neighbors:
                     dist = self.distance(nodes[v],nodes[u])
-                    f_spr = (dist - D)*strength(v,u)
+                    f_spr = (dist - D)*self.strength(graph,v,u)
                     dx = nodes[v][0] - nodes[u][0]
                     dy = nodes[v][1] - nodes[u][1]
-                        if dist > 0:
-                            desp[v][0] += (dx / dist) * f_spr
-                            desp[v][1] += (dy / dist) * f_spr
+                    if dist > 0:
+                        desp[v][0] += (dx / dist) * f_spr
+                        desp[v][1] += (dy / dist) * f_spr
                             
                 #Barnes-Hut approximate
-                
                 #Calculate repulsion from any other nodes by quadtree
-                
-                
-                #Calculate resultant force
-                
+                limit = (nodes[v][0] - 100, nodes[v][0] + 100, nodes[v][1] - 100, nodes[v][1] + 100)
+                nearby_nodes = quadtree.search(limit, 100)
+                for u in nearby_nodes:
+                    if v != u:
+                        dist = self.distance(nodes[v], u)
+                        f_rep = (1 / dist ** 2)
+                        dx = nodes[v][0] - u[0]
+                        dy = nodes[v][1] - u[1]
+                        desp[v][0] += (dx / dist) * f_rep
+                        desp[v][1] += (dy / dist) * f_rep
+                                   
                 #Velocity Increment
                 
                 #System temperature decay
-                
+                alpha = max(alphaMin, alpha - alphaDecay)
                 #Update nodes velocity
                 
                 #Displacement increment
-                
                 #Update nodes position
-                
-            #Update quadtree
-            
-            
-                #Se inicializa vector de desplazamientos
-                f[v] = [0,0]
-                for u in nodes:
-                    if (v!=u):
-                        dx = nodes[v][0] - nodes[u][0]
-                        dy = nodes[v][1] - nodes[u][1]
-                        d = self.norma(dx,dy)
-                        if d > 0:
-                            f[v][0] += (dx / d) * self.fr(k,d)
-                            f[v][1] += (dy / d) * self.fr(k,d)
-            # Compute atrattive forces
-            for e in edges:
-                dx = nodes[e[1]][0] - nodes[e[0]][0]
-                dy = nodes[e[1]][1] - nodes[e[0]][1]
-                d = self.norma(dx,dy)
-                if d > 0:
-                    f[e[1]][0] = f[e[1]][0] - (dx/d)*self.fa(k,d)
-                    f[e[1]][1] = f[e[1]][1] - (dy/d)*self.fa(k,d)
-                    f[e[0]][0] = f[e[0]][0] + (dx/d)*self.fa(k,d)
-                    f[e[0]][1] = f[e[0]][1] + (dy/d)*self.fa(k,d)
-            difx,dify = 0,0
-            for v in nodes:
-                # limit max displacement to frame; use temp. t to scale
-                
-                norf = self.norma(f[v][0],f[v][1])
-                if norf > 0:
-                    nodes[v][0] = nodes[v][0] + (f[v][0]/norf)
-                    nodes[v][1] = nodes[v][1] + (f[v][1]/norf)
-                    #nodes[v][0] = min(W/2,max(-W/2,nodes[v][0]))
-                    #nodes[v][1] = min(L/2,max(-L/2,nodes[v][1]))
+                nodes[v][0] += desp[v][0] * alpha
+                nodes[v][1] += desp[v][1] * alpha
                 nodes[v][0] = max(vertex_size, min(W - vertex_size, nodes[v][0]))
                 nodes[v][1] = max(vertex_size, min(L - vertex_size, nodes[v][1]))
                 
                 
-            #Reduce temperature for next iteration
-            if t < 1:
-                continue
-            t = t - 0.001
+            #Update quadtree
+            quadtree = Quadtree(boundary)
+            for i in nodes:
+                quadtree.insert(nodes[i])
             
             #Se limpia la pantalla
             self._display_surf.fill((250,236,255))
+            
+            quadtree.draw(self._display_surf, color=(200, 200, 200))
             
             #Se dibujan aristas en sus nuevas posiciones
             for edge in edges:
@@ -370,11 +350,11 @@ class App:
     def on_cleanup(self):
         pygame.quit()
 
-    def on_execute(self,graph, name):
+    def barnes_hut(self,graph, name):
         if self.on_init() == False:
             self._running = False
         
-        self.fruchterman_reingold_method(graph, name)
+        self.barnes_hut_method(graph, name)
         
         self.on_cleanup()
         
@@ -385,12 +365,3 @@ class App:
         self.fruchterman_reingold_method(graph, name)
         
         self.on_cleanup()
-        
-    def on_execute(self,graph, name):
-        if self.on_init() == False:
-            self._running = False
-        
-        self.fruchterman_reingold_method(graph, name)
-        
-        self.on_cleanup()
-
